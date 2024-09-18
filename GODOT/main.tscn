@@ -1,0 +1,317 @@
+[gd_scene load_steps=14 format=3 uid="uid://d4bri87bvgsix"]
+
+[ext_resource type="Texture2D" uid="uid://cj4lj3rrlv71w" path="res://icon.svg" id="1_bv8j0"]
+[ext_resource type="Script" path="res://node_2d.gd" id="1_ws244"]
+[ext_resource type="Script" path="res://character_body_2d.gd" id="3_2u6jm"]
+[ext_resource type="Script" path="res://walls.gd" id="4_5rb10"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ns7mi"]
+size = Vector2(43, 54)
+
+[sub_resource type="Animation" id="Animation_nbsuw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.359375, 0.390625)]
+}
+
+[sub_resource type="Animation" id="Animation_503tf"]
+resource_name = "jump"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.669, 0.111), Vector2(0.359375, 0.390625)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ust4"]
+_data = {
+"RESET": SubResource("Animation_nbsuw"),
+"jump": SubResource("Animation_503tf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8i77v"]
+size = Vector2(39, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxqkq"]
+size = Vector2(40.5, 41)
+
+[sub_resource type="Animation" id="Animation_yb6a4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("green orb/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("green orb/ColorRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2yjr1"]
+resource_name = "orb use"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("green orb/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.838269, 0.822901, 0.823597, 1), Color(0, 1, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("green orb/ColorRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1.62451, 1),
+"update": 0,
+"values": [Vector2(0.87, 0.87), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4s186"]
+_data = {
+"RESET": SubResource("Animation_yb6a4"),
+"orb use": SubResource("Animation_2yjr1")
+}
+
+[node name="test" type="Node2D"]
+script = ExtResource("1_ws244")
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(98, 340)
+script = ExtResource("3_2u6jm")
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+position = Vector2(41, 39)
+scale = Vector2(0.359375, 0.390625)
+texture = ExtResource("1_bv8j0")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(40.5, 39)
+shape = SubResource("RectangleShape2D_ns7mi")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="player"]
+libraries = {
+"": SubResource("AnimationLibrary_8ust4")
+}
+
+[node name="yellow orbs" type="Node2D" parent="."]
+
+[node name="orb" type="Area2D" parent="yellow orbs"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="yellow orbs/orb"]
+position = Vector2(150.5, 601.5)
+shape = SubResource("RectangleShape2D_8i77v")
+
+[node name="ColorRect" type="ColorRect" parent="yellow orbs/orb/CollisionShape2D"]
+offset_left = -19.5
+offset_top = -19.5
+offset_right = 20.5
+offset_bottom = 20.5
+color = Color(1, 1, 0.0117647, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="orb2" type="Area2D" parent="yellow orbs"]
+position = Vector2(202, -98)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="yellow orbs/orb2"]
+position = Vector2(150.5, 601.5)
+shape = SubResource("RectangleShape2D_8i77v")
+
+[node name="ColorRect" type="ColorRect" parent="yellow orbs/orb2/CollisionShape2D"]
+offset_left = -19.5
+offset_top = -19.5
+offset_right = 20.5
+offset_bottom = 20.5
+color = Color(1, 1, 0.0117647, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="orb3" type="Area2D" parent="yellow orbs"]
+position = Vector2(306, -190)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="yellow orbs/orb3"]
+position = Vector2(150.5, 601.5)
+shape = SubResource("RectangleShape2D_8i77v")
+
+[node name="ColorRect" type="ColorRect" parent="yellow orbs/orb3/CollisionShape2D"]
+offset_left = -19.5
+offset_top = -19.5
+offset_right = 20.5
+offset_bottom = 20.5
+color = Color(1, 1, 0.0117647, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="orb4" type="Area2D" parent="yellow orbs"]
+position = Vector2(205, -286)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="yellow orbs/orb4"]
+position = Vector2(150.5, 601.5)
+shape = SubResource("RectangleShape2D_8i77v")
+
+[node name="ColorRect" type="ColorRect" parent="yellow orbs/orb4/CollisionShape2D"]
+offset_left = -19.5
+offset_top = -19.5
+offset_right = 20.5
+offset_bottom = 20.5
+color = Color(1, 1, 0.0117647, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="walls" type="StaticBody2D" parent="."]
+script = ExtResource("4_5rb10")
+
+[node name="ColorRect" type="ColorRect" parent="walls"]
+offset_left = 69.0
+offset_top = 92.0
+offset_right = 1105.0
+offset_bottom = 132.0
+
+[node name="ColorRect5" type="ColorRect" parent="walls"]
+offset_left = -12.0
+offset_top = 697.0
+offset_right = 1074.0
+offset_bottom = 730.0
+
+[node name="ColorRect6" type="ColorRect" parent="walls"]
+offset_left = 1028.0
+offset_top = 524.0
+offset_right = 1059.0
+offset_bottom = 700.0
+
+[node name="red orbs" type="Node2D" parent="."]
+
+[node name="red orb" type="Area2D" parent="red orbs"]
+position = Vector2(496, -127)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="red orbs/red orb"]
+position = Vector2(150.5, 601.5)
+shape = SubResource("RectangleShape2D_8i77v")
+
+[node name="ColorRect" type="ColorRect" parent="red orbs/red orb/CollisionShape2D"]
+offset_left = -19.5
+offset_top = -19.5
+offset_right = 20.5
+offset_bottom = 20.5
+color = Color(1, 0, 0.0117647, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="green orbs" type="Node2D" parent="."]
+
+[node name="green orb" type="Area2D" parent="green orbs"]
+position = Vector2(-134, 413)
+
+[node name="ColorRect" type="ColorRect" parent="green orbs/green orb"]
+offset_left = 445.0
+offset_top = 176.0
+offset_right = 485.0
+offset_bottom = 216.0
+color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="green orbs/green orb"]
+position = Vector2(464, 193)
+shape = SubResource("RectangleShape2D_uxqkq")
+
+[node name="green orb2" type="Area2D" parent="green orbs"]
+position = Vector2(20, 425)
+
+[node name="ColorRect" type="ColorRect" parent="green orbs/green orb2"]
+offset_left = 445.0
+offset_top = 176.0
+offset_right = 485.0
+offset_bottom = 216.0
+color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="green orbs/green orb2"]
+position = Vector2(464, 193)
+shape = SubResource("RectangleShape2D_uxqkq")
+
+[node name="green orb3" type="Area2D" parent="green orbs"]
+position = Vector2(176, 423)
+
+[node name="ColorRect" type="ColorRect" parent="green orbs/green orb3"]
+offset_left = 445.0
+offset_top = 176.0
+offset_right = 485.0
+offset_bottom = 216.0
+color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="green orbs/green orb3"]
+position = Vector2(464, 193)
+shape = SubResource("RectangleShape2D_uxqkq")
+
+[node name="green orb4" type="Area2D" parent="green orbs"]
+position = Vector2(-167, 24)
+
+[node name="ColorRect" type="ColorRect" parent="green orbs/green orb4"]
+offset_left = 445.0
+offset_top = 176.0
+offset_right = 485.0
+offset_bottom = 216.0
+color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="green orbs/green orb4"]
+position = Vector2(464, 193)
+shape = SubResource("RectangleShape2D_uxqkq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="green orbs"]
+libraries = {
+"": SubResource("AnimationLibrary_4s186")
+}
+
+[connection signal="body_entered" from="yellow orbs/orb" to="player" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="yellow orbs/orb" to="player" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="yellow orbs/orb2" to="player" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="yellow orbs/orb2" to="player" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="yellow orbs/orb3" to="player" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="yellow orbs/orb3" to="player" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="yellow orbs/orb4" to="player" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="yellow orbs/orb4" to="player" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="red orbs/red orb" to="player" method="_on_red_orb_body_entered"]
+[connection signal="body_exited" from="red orbs/red orb" to="player" method="_on_red_orb_body_exited"]
+[connection signal="body_entered" from="green orbs/green orb" to="player" method="_on_green_orb_body_entered"]
+[connection signal="body_exited" from="green orbs/green orb" to="player" method="_on_green_orb_body_exited"]
+[connection signal="body_entered" from="green orbs/green orb2" to="player" method="_on_green_orb_body_entered"]
+[connection signal="body_exited" from="green orbs/green orb2" to="player" method="_on_green_orb_body_exited"]
+[connection signal="body_entered" from="green orbs/green orb3" to="player" method="_on_green_orb_body_entered"]
+[connection signal="body_exited" from="green orbs/green orb3" to="player" method="_on_green_orb_body_exited"]
+[connection signal="body_entered" from="green orbs/green orb4" to="player" method="_on_green_orb_body_entered"]
+[connection signal="body_exited" from="green orbs/green orb4" to="player" method="_on_green_orb_body_exited"]

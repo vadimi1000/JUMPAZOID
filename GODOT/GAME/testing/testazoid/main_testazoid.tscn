@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://ceffyemgufsq3"]
+
+[ext_resource type="PackedScene" uid="uid://jwhg0g0q6oo1" path="res://GAME/Control/player/player.tscn" id="1_fquyj"]
+[ext_resource type="Script" path="res://GAME/testing/testazoid/walls.gd" id="2_hge4p"]
+[ext_resource type="Script" path="res://GAME/testing/testazoid/yellow_orbs.gd" id="3_vinyy"]
+[ext_resource type="PackedScene" uid="uid://b34sqjsaaqvow" path="res://GAME/testing/testazoid/yellow_orb.tscn" id="4_d44sg"]
+
+[node name="Main testazoid" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [68.0, -377.0]
+metadata/_edit_vertical_guides_ = [-387.0]
+
+[node name="Player" parent="." instance=ExtResource("1_fquyj")]
+z_index = 1
+
+[node name="walls" type="StaticBody2D" parent="."]
+script = ExtResource("2_hge4p")
+
+[node name="ColorRect" type="ColorRect" parent="walls"]
+offset_top = 684.0
+offset_right = 1083.0
+offset_bottom = 724.0
+
+[node name="ColorRect2" type="ColorRect" parent="walls"]
+offset_left = 1052.0
+offset_top = -2.0
+offset_right = 1086.0
+offset_bottom = 736.0
+
+[node name="ColorRect3" type="ColorRect" parent="walls"]
+offset_left = 538.0
+offset_top = 559.0
+offset_right = 897.0
+offset_bottom = 597.0
+
+[node name="ColorRect4" type="ColorRect" parent="walls"]
+offset_left = 321.0
+offset_top = 435.0
+offset_right = 435.0
+offset_bottom = 473.0
+
+[node name="ColorRect5" type="ColorRect" parent="walls"]
+offset_left = 390.0
+offset_top = 504.0
+offset_right = 504.0
+offset_bottom = 542.0
+
+[node name="ColorRect6" type="ColorRect" parent="walls"]
+offset_left = 568.0
+offset_top = 456.0
+offset_right = 682.0
+offset_bottom = 494.0
+
+[node name="ColorRect7" type="ColorRect" parent="walls"]
+offset_left = 753.0
+offset_top = 376.0
+offset_right = 867.0
+offset_bottom = 414.0
+
+[node name="ColorRect8" type="ColorRect" parent="walls"]
+offset_left = 463.0
+offset_top = 270.0
+offset_right = 577.0
+offset_bottom = 308.0
+
+[node name="ColorRect9" type="ColorRect" parent="walls"]
+offset_left = 580.0
+offset_top = 323.0
+offset_right = 694.0
+offset_bottom = 361.0
+
+[node name="orbs" type="Node2D" parent="."]
+
+[node name="yellow orbs" type="Node2D" parent="orbs"]
+script = ExtResource("3_vinyy")
+
+[node name="orbs pos" type="Node2D" parent="orbs/yellow orbs"]
+
+[node name="orbs" type="Node" parent="orbs/yellow orbs"]
+
+[node name="yellow orb" parent="orbs/yellow orbs" instance=ExtResource("4_d44sg")]
+position = Vector2(142, 590)
+delay = 4.0
+
+[node name="yellow orb2" parent="orbs/yellow orbs" instance=ExtResource("4_d44sg")]
+position = Vector2(276, 585)
+
+[node name="yellow orb3" parent="orbs/yellow orbs" instance=ExtResource("4_d44sg")]
+position = Vector2(231, 504)
